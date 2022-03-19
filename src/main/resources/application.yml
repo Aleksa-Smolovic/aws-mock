@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    com.quantox.awsmock: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: "jdbc:mysql://localhost:3306/awsmock"
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  liquibase:
+    change-log: classpath:liquibase/master.xml
+
+security:
+  jwt:
+    base64-secret: NjBjZTU3MjU1OThkMWVjYjIxZWI5NGRjZDk2YWZlOGU5YjY2ZDczYThhYjJiMjAzNWEwNGJhY2Q1YTgwZTBhMGEwMGM5ZGVmOTAzMDNhY2ZkY2E3MDY1YjFmND
