@@ -16,9 +16,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -116,7 +114,6 @@ public class MachineService {
         }));
     }
 
-   
 
     private int getRandomNumber(int min, int max) {
         return random.nextInt(max - min) + min;
@@ -124,7 +121,8 @@ public class MachineService {
 
     public List<MachineDTO> getAllByCriteria(MachineCriteria machineCriteria, Pageable pageable) {
         return machineMapper.toDto(machineRepository.findAllByCriteria(machineCriteria.getName(),
-                machineCriteria.getStatuses().stream().map(Enum::toString).collect(Collectors.toList()),
+                machineCriteria.getStatuses() == null ? Arrays.stream(MachineStatus.values()).map(Enum::toString).collect(Collectors.toList()) :
+                        machineCriteria.getStatuses().stream().map(Enum::toString).collect(Collectors.toList()),
                 machineCriteria.getDateFrom(), machineCriteria.getDateTo(), pageable));
     }
 
